@@ -29,7 +29,7 @@
     </interface>
     <serial type='pty'/>
     <console type='pty'>
-      <target type='isa-serial'/>
+      <target type='serial'/>
     </console>
     <rng model='virtio'>
       <backend model='random'>/dev/urandom</backend>
