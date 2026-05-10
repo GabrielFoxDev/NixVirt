@@ -25,8 +25,8 @@ in
       type = "hvm";
       arch = "x86_64";
       machine = "microvm";
-      kernel = { path = kernel; };
-      initrd = if builtins.isNull initrd then null else { path = initrd; };
+      kernel = { path = builtins.toString kernel; };
+      initrd = if builtins.isNull initrd then null else { path = builtins.toString initrd; };
       cmdline = if builtins.isNull cmdline then null else { options = cmdline; };
     };
   features =
