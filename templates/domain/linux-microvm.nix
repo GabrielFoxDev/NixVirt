@@ -34,16 +34,7 @@ in
       apic = { };
     };
   cpu = { mode = "host-passthrough"; };
-  clock =
-    {
-      offset = "utc";
-      timer =
-        [
-          { name = "rtc"; tickpolicy = "catchup"; }
-          { name = "pit"; tickpolicy = "delay"; }
-          { name = "hpet"; present = false; }
-        ];
-    };
+  clock = { offset = "utc"; };
   devices =
     {
       emulator = "${packages.qemu}/bin/qemu-system-x86_64";
