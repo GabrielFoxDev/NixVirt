@@ -31,6 +31,7 @@ in
     };
   features =
     {
+      acpi = { };
       apic = { };
     };
   cpu = { mode = "host-passthrough"; };
@@ -48,13 +49,15 @@ in
     {
       emulator = "${packages.qemu}/bin/qemu-system-x86_64";
       disk =
-        (if builtins.isNull storage_vol then [ ] else [ (mkstorage true storage_vol backing_vol) ]);
+        (if builtins.isNull storage_vol then [ ]
+         else [ ((mkstorage true storage_vol backing_vol) // { address = { type = "virtio-mmio"; }; }) ]);
       interface =
         {
           type = "bridge";
           model = { type = "virtio"; };
           mac = if builtins.isNull net_iface_mac then null else { address = net_iface_mac; };
           source = { bridge = bridge_name; };
+          address = { type = "virtio-mmio"; };
         };
       serial = { type = "pty"; };
       console = { type = "pty"; target = { type = "serial"; }; };
@@ -62,6 +65,7 @@ in
         {
           model = "virtio";
           backend = { model = "random"; source = /dev/urandom; };
+          address = { type = "virtio-mmio"; };
         };
       # libvirt 11.x auto-injects USB and memballoon for x86_64 KVM even on
       # microvm (which has no PCI bus).  Explicitly disabling them prevents the

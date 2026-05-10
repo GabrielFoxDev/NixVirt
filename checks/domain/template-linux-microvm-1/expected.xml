@@ -8,6 +8,7 @@
     <kernel>/boot/vmlinuz</kernel>
   </os>
   <features>
+    <acpi/>
     <apic/>
   </features>
   <cpu mode='host-passthrough'/>
@@ -22,10 +23,12 @@
       <driver name='qemu' type='qcow2' cache='none' discard='unmap'/>
       <source file='/Storage/MyHD.qcow2'/>
       <target dev='vda' bus='virtio'/>
+      <address type='virtio-mmio'/>
     </disk>
     <interface type='bridge'>
       <source bridge='virbr0'/>
       <model type='virtio'/>
+      <address type='virtio-mmio'/>
     </interface>
     <serial type='pty'/>
     <console type='pty'>
@@ -33,6 +36,7 @@
     </console>
     <rng model='virtio'>
       <backend model='random'>/dev/urandom</backend>
+      <address type='virtio-mmio'/>
     </rng>
     <controller type='usb' model='none'/>
     <memballoon model='none'/>
