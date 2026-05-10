@@ -3,6 +3,9 @@ stuff@{ packages, ... }:
 , uuid
 , vcpu ? { count = 2; }
 , memory ? { count = 2; unit = "GiB"; }
+, kernel
+, initrd ? null
+, cmdline ? null
 , storage_vol ? null
 , backing_vol ? null
 , bridge_name ? "virbr0"
@@ -22,11 +25,12 @@ in
       type = "hvm";
       arch = "x86_64";
       machine = "microvm";
-      boot = [{ dev = "hd"; }];
+      kernel = { path = kernel; };
+      initrd = if builtins.isNull initrd then null else { path = initrd; };
+      cmdline = if builtins.isNull cmdline then null else { options = cmdline; };
     };
   features =
     {
-      acpi = { };
       apic = { };
     };
   cpu = { mode = "host-passthrough"; };
@@ -52,13 +56,6 @@ in
           mac = if builtins.isNull net_iface_mac then null else { address = net_iface_mac; };
           source = { bridge = bridge_name; };
         };
-      channel =
-        [
-          {
-            type = "unix";
-            target = { type = "virtio"; name = "org.qemu.guest_agent.0"; };
-          }
-        ];
       serial = { type = "pty"; };
       console = { type = "pty"; target = { type = "virtio"; }; };
       rng =
