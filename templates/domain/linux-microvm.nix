@@ -31,7 +31,6 @@ in
     };
   features =
     {
-      acpi = { };
       apic = { };
     };
   cpu = { mode = "host-passthrough"; };

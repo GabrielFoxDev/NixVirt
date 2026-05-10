@@ -8,7 +8,6 @@
     <kernel>/boot/vmlinuz</kernel>
   </os>
   <features>
-    <acpi/>
     <apic/>
   </features>
   <cpu mode='host-passthrough'/>
