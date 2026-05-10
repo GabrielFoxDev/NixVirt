@@ -64,7 +64,5 @@ in
           model = "virtio";
           backend = { model = "random"; source = /dev/urandom; };
         };
-      # Disable the memballoon libvirt adds by default (virtio over PCI).
-      memballoon = { model = "none"; };
     };
 }
