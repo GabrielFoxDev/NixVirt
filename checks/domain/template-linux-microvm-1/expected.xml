@@ -11,11 +11,7 @@
     <apic/>
   </features>
   <cpu mode='host-passthrough'/>
-  <clock offset='utc'>
-    <timer name='rtc' tickpolicy='catchup'/>
-    <timer name='pit' tickpolicy='delay'/>
-    <timer name='hpet' present='no'/>
-  </clock>
+  <clock offset='utc'/>
   <devices>
     <emulator>QEMU_PATH/bin/qemu-system-x86_64</emulator>
     <disk type='file' device='disk'>
