@@ -63,5 +63,10 @@ in
           model = "virtio";
           backend = { model = "random"; source = /dev/urandom; };
         };
+      # libvirt 11.x auto-injects USB and memballoon for x86_64 KVM even on
+      # microvm (which has no PCI bus).  Explicitly disabling them prevents the
+      # "No PCI buses available" error during domain definition.
+      controller = [ { type = "usb"; model = "none"; } ];
+      memballoon = { model = "none"; };
     };
 }
