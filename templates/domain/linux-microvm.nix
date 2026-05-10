@@ -57,7 +57,8 @@ in
           source = { bridge = bridge_name; };
         };
       serial = { type = "pty"; };
-      console = { type = "pty"; target = { type = "virtio"; }; };
+      # isa-serial aliases the serial device above; no virtio-serial PCI controller needed.
+      console = { type = "pty"; target = { type = "isa-serial"; }; };
       rng =
         {
           model = "virtio";
